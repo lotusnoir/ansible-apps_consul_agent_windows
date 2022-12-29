@@ -1,0 +1,29 @@
+---
+# Install
+consul_version: "1.14.0"
+consul_install_path: /consul
+consul_configd_path: "{{ consul_install_path }}/consul.d"
+consul_bin_path: "{{ consul_install_path }}"
+consul_user: LocalSystem
+
+# Config
+consul_agent_systemd_args_win: ""
+consul_client_configuration: |
+  data_dir = "{{ consul_install_path }}"
+  encrypt = "qDOPBEr+/oUVeOFQOnVypxwDaHzLrD+lvjo5vCEBbZ0="
+  verify_server_hostname = false
+  leave_on_terminate = false
+  disable_update_check = true
+
+  ports {
+    grpc = 8502
+  }
+
+  connect {
+    enabled = true
+  }
+
+  telemetry {
+    prometheus_retention_time = "2m"
+    disable_hostname = true
+  }

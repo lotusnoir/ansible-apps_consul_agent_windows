@@ -1,0 +1,54 @@
+---
+- name: Verify TLS1.2 is used
+  win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319
+    name: SchUseStrongCrypto
+    data: 1
+    type: dword
+
+- name: Create directories on Windows
+  win_file:
+    dest: "{{ dir_item }}"
+    state: directory
+  with_items:
+    - "{{ consul_install_path }}"
+    - "{{ consul_configd_path }}"
+    - "{{ consul_bin_path }}"
+  loop_control:
+    loop_var: dir_item
+
+- name: Create temporary directory to download Consul
+  win_tempfile:
+    state: directory
+    prefix: ansible-consul.
+  register: consul_temp_dir
+
+- name: Download and unarchive Consul
+  block:
+    - name: Download Consul
+      win_get_url:
+        url: "{{ consul_zip_url }}"
+        dest: "{{ consul_temp_dir.path }}\\{{ consul_pkg }}"
+
+    - name: Unarchive Consul and install binary
+      win_unzip:
+        src: "{{ consul_temp_dir.path }}\\{{ consul_pkg }}"
+        dest: "{{ consul_bin_path }}"
+  always:
+    - name: Cleanup
+      win_file:
+        path: "{{ consul_temp_dir.path }}"
+        state: absent
+
+- name: Create configuration
+  ansible.windows.win_template:
+    src: consul.hcl.j2
+    dest: "{{ consul_configd_path }}/consul.hcl"
+  notify: Restart consul
+
+- name: Create a new service with extra details
+  ansible.windows.win_service:
+    name: Consul
+    path: 'C:\consul\consul.exe agent -config-dir="c:\consul\consul.d" {{ consul_agent_systemd_args_win }}'
+    display_name: Consul
+    description: Consul service description
