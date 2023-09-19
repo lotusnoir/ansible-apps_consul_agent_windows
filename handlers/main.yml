@@ -1,5 +1,5 @@
 ---
 - name: Restart consul
   ansible.windows.win_service:
-    name: consul
+    name: Consul-service
     state: restarted

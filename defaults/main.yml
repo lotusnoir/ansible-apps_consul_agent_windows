@@ -1,29 +1,18 @@
 ---
-# Install
-consul_version: "1.14.0"
-consul_install_path: /consul
-consul_configd_path: "{{ consul_install_path }}/consul.d"
-consul_bin_path: "{{ consul_install_path }}"
-consul_user: LocalSystem
+# paths
+consul_win_install_path: 'c:\\consul'
+consul_win_configd_path: "{{ consul_win_install_path }}\\consul.d"
+consul_win_bin_path: "{{ consul_win_install_path }}"
 
-# Config
-consul_agent_systemd_args_win: ""
-consul_client_configuration: |
-  data_dir = "{{ consul_install_path }}"
-  encrypt = "qDOPBEr+/oUVeOFQOnVypxwDaHzLrD+lvjo5vCEBbZ0="
-  verify_server_hostname = false
-  leave_on_terminate = false
-  disable_update_check = true
+# binary
+consul_win_version: "1.16.1"
+consul_win_pkg: "consul_{{ consul_win_version }}_windows_amd64.zip"
+consul_win_zip_url: "https://releases.hashicorp.com/consul/{{ consul_win_version }}/{{ consul_win_pkg }}"
+consul_win_checksum_file_url: "https://releases.hashicorp.com/consul/{{ consul_win_version }}/consul_{{ consul_win_version }}_SHA256SUMS"
 
-  ports {
-    grpc = 8502
-  }
+# Config file
+consul_win_client_configuration: ""
+consul_agent_config_d: ""
 
-  connect {
-    enabled = true
-  }
-
-  telemetry {
-    prometheus_retention_time = "2m"
-    disable_hostname = true
-  }
+# systemd
+consul_win_agent_systemd_args: ""
