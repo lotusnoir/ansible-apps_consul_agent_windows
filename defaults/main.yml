@@ -8,11 +8,9 @@ consul_win_bin_path: "{{ consul_win_install_path }}"
 consul_win_version: "1.16.1"
 consul_win_pkg: "consul_{{ consul_win_version }}_windows_amd64.zip"
 consul_win_zip_url: "https://releases.hashicorp.com/consul/{{ consul_win_version }}/{{ consul_win_pkg }}"
-consul_win_checksum_file_url: "https://releases.hashicorp.com/consul/{{ consul_win_version }}/consul_{{ consul_win_version }}_SHA256SUMS"
 
 # Config file
 consul_win_client_configuration: ""
-consul_agent_config_d: ""
 
 # systemd
 consul_win_agent_systemd_args: ""
