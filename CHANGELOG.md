@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0](https://gitlab.pleal.ovh/ansible-roles_base/ansible-apps_consul_agent_windows/compare/1.1.0...1.2.0) - 2025-10-10
+
+### Commits
+
+- doc: update changelog [`17054da`](https://gitlab.pleal.ovh/ansible-roles_base/ansible-apps_consul_agent_windows/commit/17054da26e49944cb8902fecc8db7071520a9f2d)
+
 ## [1.1.0](https://gitlab.pleal.ovh/ansible-roles_base/ansible-apps_consul_agent_windows/compare/1.0.0...1.1.0) - 2025-10-10
 
 ### Commits
